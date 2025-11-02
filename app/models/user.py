@@ -82,6 +82,7 @@ class User(Base):
         Returns:
             bool: True if password matches, False otherwise
         """
+        # Import here to avoid circular imports
         from app.auth.jwt import verify_password
         return verify_password(plain_password, self.password)
 
@@ -96,6 +97,7 @@ class User(Base):
         Returns:
             str: The hashed password
         """
+        # Import here to avoid circular imports
         from app.auth.jwt import get_password_hash
         return get_password_hash(password)
 
@@ -187,6 +189,7 @@ class User(Base):
         Returns:
             str: JWT access token
         """
+        # Import here to avoid circular imports
         from app.auth.jwt import create_token
         from app.schemas.token import TokenType
         return create_token(data["sub"], TokenType.ACCESS)
@@ -202,6 +205,7 @@ class User(Base):
         Returns:
             str: JWT refresh token
         """
+        # Import here to avoid circular imports
         from app.auth.jwt import create_token
         from app.schemas.token import TokenType
         return create_token(data["sub"], TokenType.REFRESH)
