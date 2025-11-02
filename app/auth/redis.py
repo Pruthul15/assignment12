@@ -1,22 +1,17 @@
 # app/auth/redis.py
-import aioredis
-from app.core.config import get_settings
+"""
+Redis token blacklist management.
+For now, this is a simple in-memory implementation.
+In production, replace with actual Redis connection.
+"""
 
-settings = get_settings()
-
-async def get_redis():
-    if not hasattr(get_redis, "redis"):
-        get_redis.redis = await aioredis.from_url(
-            settings.REDIS_URL or "redis://localhost"
-        )
-    return get_redis.redis
+# Simple in-memory token blacklist (for development/testing)
+_token_blacklist = set()
 
 async def add_to_blacklist(jti: str, exp: int):
     """Add a token's JTI to the blacklist"""
-    redis = await get_redis()
-    await redis.set(f"blacklist:{jti}", "1", ex=exp)
+    _token_blacklist.add(jti)
 
 async def is_blacklisted(jti: str) -> bool:
     """Check if a token's JTI is blacklisted"""
-    redis = await get_redis()
-    return await redis.exists(f"blacklist:{jti}")
+    return jti in _token_blacklist
