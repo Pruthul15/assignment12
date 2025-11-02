@@ -7,8 +7,9 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from app.auth.dependencies import get_current_active_user
-from app.models.calculation import Calculation
+# CRITICAL: Import ALL calculation classes so they register with Base metadata
 from app.models.user import User
+from app.models.calculation import Calculation, Addition, Subtraction, Multiplication, Division
 from app.schemas.calculation import CalculationBase, CalculationResponse, CalculationUpdate
 from app.schemas.token import TokenResponse
 from app.schemas.user import UserCreate, UserResponse, UserLogin
@@ -18,8 +19,13 @@ from app.database import Base, get_db, engine
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("Creating tables...")
-    Base.metadata.create_all(bind=engine)
-    print("Tables created successfully!")
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("✅ Tables created successfully!")
+    except Exception as e:
+        print(f"❌ ERROR creating tables: {e}")
+        import traceback
+        traceback.print_exc()
     yield
 
 app = FastAPI(
