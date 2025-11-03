@@ -10,7 +10,7 @@ This is a FastAPI application implementing user registration, authentication, an
 - **JWT Tokens**: Access and refresh token generation
 - **Calculations API**: Full BREAD operations with polymorphic inheritance
 - **Database**: PostgreSQL with SQLAlchemy ORM
-- **Testing**: 94+ passing tests with 70% code coverage
+- **Testing**: 96 passing tests, 4 skipped with 70% code coverage
 - **CI/CD**: GitHub Actions with automated Docker deployment
 - **Docker**: Complete containerization with Docker Compose
 
