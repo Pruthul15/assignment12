@@ -54,7 +54,7 @@ jobs:
           source venv/bin/activate
           
           # 1) Unit tests
-          pytest tests/unit/ --cov=src --junitxml=test-results/junit.xml
+          pytest tests/unit/ --cov=app --cov-report=term-missing --junitxml=test-results/junit.xml
           
           # 2) Integration tests
           pytest tests/integration/
@@ -79,6 +79,7 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
+          trivyignores: '.trivyignore'
   
   deploy:
     needs: security
@@ -99,8 +100,8 @@ jobs:
         with:
           push: true
           tags: |
-            kaw393939/601_module9:latest
-            kaw393939/601_module9:${{ github.sha }}
+            pruthul123/assignment12:latest
+            pruthul123/assignment12:${{ github.sha }}
           platforms: linux/amd64,linux/arm64
-          cache-from: type=registry,ref=kaw393939/601_module9:cache
+          cache-from: type=registry,ref=pruthul123/assignment12:cache
           cache-to: type=inline,mode=max
