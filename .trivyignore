@@ -1,10 +1,2 @@
-# Trivy Security Scan Ignores
-# These CVEs have fixes available but cannot be applied due to dependency conflicts
-
-# CVE-2025-43859: h11 accepts malformed Chunked-Encoding bodies
-# Fixed in h11 0.16.0, but httpcore 1.0.7 requires h11<0.15
 CVE-2025-43859
-
-# CVE-2025-62727: Starlette DoS via Range header merging  
-# Fixed in starlette 0.49.1
 CVE-2025-62727
